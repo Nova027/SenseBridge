@@ -4,18 +4,25 @@
 - Team Name: SenseBridge
 - Idea Title: SenseBridge – A Unified Accessibility App
 - Idea url: https://aibuzz.qualcomm.com/idea/3567
+
 - Team Members
   - Swarnava Das
   - Haresh Gaikwad
   - Atanu Debnath
+
 - Programming language used: Kotlin, C++, Python (to prepare models)
+
 - AI Hub Model links
-  - <!-- link 1 -->
-  - <!-- link 2 -->
+  - https://aihub.qualcomm.com/models/openai_clip
+  - https://aihub.qualcomm.com/models/trocr
+  - https://aihub.qualcomm.com/models/mediapipe_hand
+  - https://aihub.qualcomm.com/models/huggingface_wavlm_base_plus
+  - https://aihub.qualcomm.com/mobile/models/llama_v3_8b_chat_quantized
+
 - Target device
   - [ ] PC
-  - [ y ] Mobile
-  - [ ] Others: <!-- Specify the device --> 
+  - [x] Mobile
+  - [ ] Others: 
 
 
 ## Implementation Summary
@@ -48,4 +55,4 @@ Mention any additional requirements here. If not, leave the NA.
 - [ ] Readme updated with required fields
 - [ ] Dependency installation scripts added
 - [ ] Startup script added
-- [ ] Idea url updated in Readme
+- [x] Idea url updated in Readme
