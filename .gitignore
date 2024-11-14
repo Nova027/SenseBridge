@@ -1,9 +1,10 @@
-/android/SenseBridge/*.iml
+*.iml
 /android/SenseBridge/.gradle
 /android/SenseBridge/local.properties
 /android/SenseBridge/.idea/caches
 /android/SenseBridge/.idea/libraries
 /android/SenseBridge/.idea/modules.xml
+/android/SenseBridge/.idea/shelf/
 /android/SenseBridge/.idea/workspace.xml
 /android/SenseBridge/.idea/navEditor.xml
 /android/SenseBridge/.idea/assetWizardSettings.xml
@@ -12,3 +13,5 @@
 /android/SenseBridge/captures
 /android/SenseBridge/.externalNativeBuild
 /android/SenseBridge/.cxx
+/android/SenseBridge/app/build
+/android/SenseBridge/app/.cxx
