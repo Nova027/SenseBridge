@@ -1,0 +1,4 @@
+C:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/.cxx/Debug/4b6u6p29/x86/CMakeFiles/sensebridge_cpp_v1.dir
+C:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/.cxx/Debug/4b6u6p29/x86/CMakeFiles/sensebridge_cpp_v2.dir
+C:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/.cxx/Debug/4b6u6p29/x86/CMakeFiles/edit_cache.dir
+C:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/.cxx/Debug/4b6u6p29/x86/CMakeFiles/rebuild_cache.dir

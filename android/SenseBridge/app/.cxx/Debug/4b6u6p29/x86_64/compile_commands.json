@@ -1,0 +1,22 @@
+[
+{
+  "directory": "C:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/.cxx/Debug/4b6u6p29/x86_64",
+  "command": "C:\\Users\\swarnava\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=x86_64-none-linux-android24 --sysroot=C:/Users/swarnava/AppData/Local/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dsensebridge_cpp_v1_EXPORTS -IC:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/src/main/cpp/common -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles\\sensebridge_cpp_v1.dir\\sensebridge_cpp_v1.cpp.o -c C:\\Users\\swarnava\\Downloads\\ExpDev\\SenseBridge\\android\\SenseBridge\\app\\src\\main\\cpp\\sensebridge_cpp_v1.cpp",
+  "file": "C:\\Users\\swarnava\\Downloads\\ExpDev\\SenseBridge\\android\\SenseBridge\\app\\src\\main\\cpp\\sensebridge_cpp_v1.cpp"
+},
+{
+  "directory": "C:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/.cxx/Debug/4b6u6p29/x86_64",
+  "command": "C:\\Users\\swarnava\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=x86_64-none-linux-android24 --sysroot=C:/Users/swarnava/AppData/Local/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dsensebridge_cpp_v1_EXPORTS -IC:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/src/main/cpp/common -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles\\sensebridge_cpp_v1.dir\\common\\common_defs.cpp.o -c C:\\Users\\swarnava\\Downloads\\ExpDev\\SenseBridge\\android\\SenseBridge\\app\\src\\main\\cpp\\common\\common_defs.cpp",
+  "file": "C:\\Users\\swarnava\\Downloads\\ExpDev\\SenseBridge\\android\\SenseBridge\\app\\src\\main\\cpp\\common\\common_defs.cpp"
+},
+{
+  "directory": "C:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/.cxx/Debug/4b6u6p29/x86_64",
+  "command": "C:\\Users\\swarnava\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=x86_64-none-linux-android24 --sysroot=C:/Users/swarnava/AppData/Local/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dsensebridge_cpp_v2_EXPORTS -IC:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/src/main/cpp/common -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles\\sensebridge_cpp_v2.dir\\sensebridge_cpp_v2.cpp.o -c C:\\Users\\swarnava\\Downloads\\ExpDev\\SenseBridge\\android\\SenseBridge\\app\\src\\main\\cpp\\sensebridge_cpp_v2.cpp",
+  "file": "C:\\Users\\swarnava\\Downloads\\ExpDev\\SenseBridge\\android\\SenseBridge\\app\\src\\main\\cpp\\sensebridge_cpp_v2.cpp"
+},
+{
+  "directory": "C:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/.cxx/Debug/4b6u6p29/x86_64",
+  "command": "C:\\Users\\swarnava\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=x86_64-none-linux-android24 --sysroot=C:/Users/swarnava/AppData/Local/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dsensebridge_cpp_v2_EXPORTS -IC:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/src/main/cpp/common -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles\\sensebridge_cpp_v2.dir\\common\\common_defs.cpp.o -c C:\\Users\\swarnava\\Downloads\\ExpDev\\SenseBridge\\android\\SenseBridge\\app\\src\\main\\cpp\\common\\common_defs.cpp",
+  "file": "C:\\Users\\swarnava\\Downloads\\ExpDev\\SenseBridge\\android\\SenseBridge\\app\\src\\main\\cpp\\common\\common_defs.cpp"
+}
+]

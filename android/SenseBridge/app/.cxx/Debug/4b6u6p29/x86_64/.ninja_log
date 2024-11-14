@@ -1,0 +1,7 @@
+# ninja log v5
+177	12545	7532969067743590	CMakeFiles/sensebridge_cpp_v1.dir/common/common_defs.cpp.o	661dba05152432bf
+410	12583	7532969067743590	CMakeFiles/sensebridge_cpp_v2.dir/common/common_defs.cpp.o	10162da16665f727
+1	12593	7532969068228861	CMakeFiles/sensebridge_cpp_v1.dir/sensebridge_cpp_v1.cpp.o	a229f95dad4357e1
+277	12672	7532969068433631	CMakeFiles/sensebridge_cpp_v2.dir/sensebridge_cpp_v2.cpp.o	b35b960190baefe5
+12594	13114	7532969073357372	C:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/build/intermediates/cxx/Debug/4b6u6p29/obj/x86_64/libsensebridge_cpp_v1.so	ca29f34a5915a676
+12673	13168	7532969073969245	C:/Users/swarnava/Downloads/ExpDev/SenseBridge/android/SenseBridge/app/build/intermediates/cxx/Debug/4b6u6p29/obj/x86_64/libsensebridge_cpp_v2.so	3d9a2e64b499bd68
