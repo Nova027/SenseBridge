@@ -2,5 +2,5 @@
 
 std::string header_string()
 {
-    return "header22";
+    return "AtanuHDR";
 }

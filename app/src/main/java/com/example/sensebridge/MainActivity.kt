@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity()
     @Composable
     fun Greeting(name: String, modifier: Modifier = Modifier) {
         Text(
-            text = "${stringFromJNI()} ${stringFromJNI2()} ${stringFromJNI()} Hello $name!",
+            text = "${stringFromJNI()} ${stringFromJNI2()} Hello $name!",
             modifier = modifier
         )
     }
