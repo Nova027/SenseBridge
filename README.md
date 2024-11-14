@@ -1,19 +1,20 @@
 # AI Buzz Phase 2 Submission
 
 ## Idea Details
-- Team Name: <!-- Same team name as in portal -->
-- Idea Title: <!-- Must match with submission in portal -->
-- Idea url: <!-- Link to your idea in AI Buzz portal -->
+- Team Name: SenseBridge
+- Idea Title: SenseBridge – A Unified Accessibility App
+- Idea url: https://aibuzz.qualcomm.com/idea/3567
 - Team Members
-  - <!-- Member 1 -->
-  - <!-- Member 2 -->
-- Programming language used: 
+  - Swarnava Das
+  - Haresh Gaikwad
+  - Atanu Debnath
+- Programming language used: Kotlin, C++, Python (to prepare models)
 - AI Hub Model links
   - <!-- link 1 -->
   - <!-- link 2 -->
 - Target device
   - [ ] PC
-  - [ ] Mobile
+  - [ y ] Mobile
   - [ ] Others: <!-- Specify the device --> 
 
 
