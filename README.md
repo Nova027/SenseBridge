@@ -33,7 +33,7 @@ Mention important files/functions to check, limitations of current implementatio
 
 ## Installation & Setup steps
 <!-- 
-Mention in detail how a reviewer can install and run your project. Prefereable include a script to automate the setup.
+Mention in detail how a reviewer can install and run your project. Preferable include a script to automate the setup.
 Make sure to include the pre-requisite packages/assumptions (e.g. Java, Android Studio) in detail.
 -->
 
