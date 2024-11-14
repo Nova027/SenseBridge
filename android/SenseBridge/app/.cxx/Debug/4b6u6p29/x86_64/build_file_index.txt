@@ -1,1 +1,0 @@
-C:\Users\swarnava\Downloads\ExpDev\SenseBridge\android\SenseBridge\app\src\main\cpp\CMakeLists.txt
