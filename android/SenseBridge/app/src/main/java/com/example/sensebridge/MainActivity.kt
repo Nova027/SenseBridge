@@ -5,23 +5,28 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -37,10 +42,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.example.sensebridge.ui.theme.Purple80
+import com.example.sensebridge.ui.theme.PurpleGrey80
+import com.example.sensebridge.ui.theme.CardPurpleGrey10
+import com.example.sensebridge.featuresAvailable
 @OptIn(ExperimentalMaterial3Api::class)
 
 class MainActivity : ComponentActivity()
@@ -60,13 +70,15 @@ class MainActivity : ComponentActivity()
         var showToast = remember { mutableStateOf(false) }
         var sessionCount = remember { mutableIntStateOf(0) }
         var prevSessionCount = remember { mutableIntStateOf(0) }
+        var selectedFeature = remember { mutableStateOf(FeatureInfo("Invalid", 0)) }
 
         // Scaffold to organize the UI with topBar, floatingActionButtons and Content
         Scaffold(topBar = { TopBar("Home") },
             floatingActionButton = { ActionButtons(showAddSessionDialog, showToast) })
         { innerPadding ->
             // Column to hold the content of the home screen, based on scaffold placement
-            Column(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
+            Column(modifier = Modifier.fillMaxSize().padding(innerPadding))
+            {
                 // Display a scrollable list of previously created sessions, If they exist
                 if (sessionCount.intValue > 0) {
                     LazyColumn(modifier = Modifier.padding(16.dp))
@@ -86,7 +98,7 @@ class MainActivity : ComponentActivity()
 
         if (showAddSessionDialog.value) {
             prevSessionCount.intValue = sessionCount.intValue
-            AddSessionDialog(showAddSessionDialog, sessionCount)
+            AddSessionDialog(showAddSessionDialog, sessionCount, selectedFeature)
         }
 
         if (showToast.value) {
@@ -95,7 +107,11 @@ class MainActivity : ComponentActivity()
         }
 
         if (sessionCount.intValue > prevSessionCount.intValue) {
-            Toast.makeText(this, "Session Added", Toast.LENGTH_SHORT).show()
+            if (selectedFeature.value.name != "Invalid") {
+                Toast.makeText(this, "Session Created for ${selectedFeature.value.name}", Toast.LENGTH_SHORT).show()
+            }
+            else
+                Toast.makeText(this, "Session Added", Toast.LENGTH_SHORT).show()
             prevSessionCount.intValue = sessionCount.intValue
         }
     }
@@ -104,8 +120,8 @@ class MainActivity : ComponentActivity()
     @Composable
     fun TopBar(text: String = "Top Bar")
     {
-        TopAppBar(colors = topAppBarColors(containerColor = Color(0xFF44A6CC)),
-            title = {Text(text, color = Color.White)})
+        TopAppBar(colors = topAppBarColors(containerColor = Purple80),
+            title = {Text(text, color = Color(0xFF000055), fontWeight = FontWeight.Bold)})
     }
 
     // Action Buttons to be used by Home screen Scaffold
@@ -123,15 +139,17 @@ class MainActivity : ComponentActivity()
         }
     }
 
-    // Session Data to be displayed in LazyColumn of Home screen Scaffold
+    // To display Session Data in LazyColumn of Home screen Scaffold
     @Composable
     fun SessionData(index : Int)
     {
-        Card(shape = RoundedCornerShape(8.dp),
+        // Card to hold the session data
+        Card(shape = RoundedCornerShape(8.dp), colors = CardDefaults.cardColors(CardPurpleGrey10),
             modifier = Modifier.fillMaxWidth().height(100.dp))
         {
             Text(text = "Session $index", modifier = Modifier.padding(8.dp))
         }
+        // Horizontal divider to separate from next card
         Spacer(modifier = Modifier.height(4.dp))
         HorizontalDivider(modifier = Modifier.padding(1.dp))
         Spacer(modifier = Modifier.height(4.dp))
@@ -139,25 +157,48 @@ class MainActivity : ComponentActivity()
 
     @Composable
     // Dialog box to add a new session
-    fun AddSessionDialog(showAddSessionDialog: MutableState<Boolean>, sessionCount: MutableIntState)
+    fun AddSessionDialog(showAddSessionDialog: MutableState<Boolean>,
+                         sessionCount: MutableIntState,
+                         selectedFeature: MutableState<FeatureInfo>)
     {
+        var currentFeatureSelected = remember { mutableStateOf(FeatureInfo("Invalid", 0)) }
         Dialog(onDismissRequest = { showAddSessionDialog.value = false })
         {
             Card(shape = RoundedCornerShape(8.dp),
                 modifier = Modifier.padding(16.dp).fillMaxWidth().height(600.dp))
             {
-                Column(modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally)
+                Column(modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center)
                 {
-                    Text("Add Session", color = Color.Black)
+                    Text("Choose Feature for New Session", color = Color.Black)
+                    Spacer(modifier = Modifier.height(32.dp))
 
-                    TextButton(onClick = {
-                        sessionCount.intValue++
-                        showAddSessionDialog.value = false
-                    })
+                    // Adding multiple rows of radio buttons to select a feature
+                    for (feature in featuresAvailable) {
+                        Row(modifier = Modifier.fillMaxWidth().height(25.dp),
+                            verticalAlignment = Alignment.CenterVertically)
+                        {
+                            RadioButton(
+                                selected = (feature == currentFeatureSelected.value),
+                                onClick = { currentFeatureSelected.value = feature }
+                            )
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Text(feature.name)
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
+                    Spacer(modifier = Modifier.weight(1f))
+                    Row(horizontalArrangement = Arrangement.End,
+                        modifier = Modifier.fillMaxWidth())
                     {
-                        Text("OK")
+                        TextButton(onClick = {
+                            sessionCount.intValue++
+                            showAddSessionDialog.value = false
+                            selectedFeature.value = currentFeatureSelected.value
+                        })
+                        {
+                            Text("OK")
+                        }
                     }
                 }
             }
