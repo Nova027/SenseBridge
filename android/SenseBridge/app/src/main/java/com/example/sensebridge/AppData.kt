@@ -11,3 +11,8 @@ val featuresAvailable = listOf(
         FeatureInfo("Chatbot", 1),
         FeatureInfo("Scene Description", 1)
     )
+
+data class SessionData (
+    var feature : FeatureInfo,
+    var index : Int
+)
