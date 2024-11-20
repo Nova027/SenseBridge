@@ -141,7 +141,7 @@ class HomeScreen {
     @Composable
     fun AddSessionDialog(args: HomeScreenState, mainContext: Context, navController: NavHostController)
     {
-        var currentFeatureSelected = remember { mutableStateOf(FeatureInfo("Invalid", 0)) }
+        var currentFeatureSelected = remember { mutableStateOf(FeatureInfo("Invalid", false)) }
         Dialog(onDismissRequest = { args.showAddSessionDialog.value = false })
         {
             Card(shape = RoundedCornerShape(8.dp),
@@ -182,10 +182,8 @@ class HomeScreen {
                                 args.selectedFeature.value = currentFeatureSelected.value
                                 args.isFeatureSelected.value = true
 
-                                if (args.selectedFeature.value.name == "Scene Description")
-                                    navController.navigate("scene_description")
-                                else if (args.selectedFeature.value.name == "Chatbot")
-                                    navController.navigate("screen3")
+                                if (!args.selectedFeature.value.todo)
+                                    navController.navigate(args.selectedFeature.value.nextScreen)
                             }
                             else
                             {

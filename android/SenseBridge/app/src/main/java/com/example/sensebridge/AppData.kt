@@ -5,15 +5,10 @@ import androidx.compose.runtime.MutableState
 
 data class FeatureInfo(
     val name: String,
-    val todo: Int
+    val todo: Boolean,
+    val nextScreen: String = ""
     // To add more members, including next screen to Navigate
 )
-
-val featuresAvailable = listOf(
-        FeatureInfo("Voice Assistant", 1),
-        FeatureInfo("Chatbot", 1),
-        FeatureInfo("Scene Description", 1)
-    )
 
 data class SessionData (
     var feature : FeatureInfo,
@@ -26,4 +21,17 @@ data class HomeScreenState (
     var sessionCount : MutableIntState,
     var selectedFeature : MutableState<FeatureInfo>,
     var isFeatureSelected : MutableState<Boolean>
+)
+
+val featuresAvailable = listOf(
+    FeatureInfo("Voice Assistant", true),
+    FeatureInfo("Chatbot", false, "screen3"),
+    FeatureInfo("Scene Description", false, "scene_description")
+)
+
+val sessionList : MutableList<SessionData> = mutableListOf()
+
+val permissionList = arrayOf(
+    android.Manifest.permission.RECORD_AUDIO,
+    android.Manifest.permission.CAMERA
 )
