@@ -1,6 +1,5 @@
 package com.example.sensebridge
 
-import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -47,7 +46,7 @@ import com.example.sensebridge.ui.theme.CardPurpleGrey10
 
 class HomeScreen {
     @Composable
-    fun HomeScreenUI(mainContext: Context, navController: NavHostController, args: HomeScreenState)
+    fun HomeScreenUI(mainContext: MainActivity, navController: NavHostController, args: HomeScreenState)
     {
         // Scaffold to organize the UI with topBar, floatingActionButtons and Content
         Scaffold(topBar = { TopBar("Home") },
@@ -139,7 +138,7 @@ class HomeScreen {
 
     // Dialog box as an overlaid card, to add a new session
     @Composable
-    fun AddSessionDialog(args: HomeScreenState, mainContext: Context, navController: NavHostController)
+    fun AddSessionDialog(args: HomeScreenState, mainContext: MainActivity, navController: NavHostController)
     {
         var currentFeatureSelected = remember { mutableStateOf(FeatureInfo("Invalid", false)) }
         Dialog(onDismissRequest = { args.showAddSessionDialog.value = false })
@@ -182,13 +181,18 @@ class HomeScreen {
                                 args.selectedFeature.value = currentFeatureSelected.value
                                 args.isFeatureSelected.value = true
 
-                                if (!args.selectedFeature.value.todo)
-                                    navController.navigate(args.selectedFeature.value.nextScreen)
+                                if (!args.selectedFeature.value.todo) {
+                                    if ( mainContext.handleDeniedPermission ( checkPermissionsGranted(args.selectedFeature.value, mainContext) ) > 0)
+                                        navController.navigate(args.selectedFeature.value.nextScreen)
+                                    else {
+                                        args.sessionCount.intValue--
+                                        args.selectedFeature.value = FeatureInfo("Invalid", false)
+                                        args.isFeatureSelected.value = false
+                                    }
+                                }
                             }
                             else
-                            {
                                 Toast.makeText(mainContext, "Please select a feature!", Toast.LENGTH_SHORT).show()
-                            }
                         })
                         {
                             Text("OK")

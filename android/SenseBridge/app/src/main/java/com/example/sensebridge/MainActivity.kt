@@ -19,25 +19,38 @@ import androidx.core.app.ActivityCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import java.util.concurrent.Executors
+import java.util.concurrent.ExecutorService
 
 class MainActivity : ComponentActivity()
 {
+    private lateinit var featureExecutor : ExecutorService
+
+    fun handleDeniedPermission(permissions : List<String> = listOf()) : Int {
+        if (permissions.isEmpty())
+            return 1
+        for (permission in permissions)
+            Toast.makeText(this, "Permission ${permission.split('.')[2]} denied! Please grant it in settings", Toast.LENGTH_SHORT).show()
+        // Close the app
+        finish()
+        // Open app settings
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        intent.data = Uri.fromParts("package", packageName, null)
+        startActivity(intent)
+        return -1
+    }
+
     val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { grantMap ->
+        var missingPermissions = mutableListOf<String>()
         for ((permission, granted) in grantMap) {
             if (granted)
                 Log.d("MainActivity", "Permission $permission granted!")
             else if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission))
                 Toast.makeText(this, "Permission ${permission.split('.')[2]} denied!", Toast.LENGTH_SHORT).show()
-            else {
-                Toast.makeText(this, "Permission ${permission.split('.')[2]} denied! Please grant it in settings", Toast.LENGTH_SHORT).show()
-                // Close the app
-                finish()
-                // Open app settings
-                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                intent.data = Uri.fromParts("package", packageName, null)
-                startActivity(intent)
-            }
+            else
+                missingPermissions += permission
         }
+        handleDeniedPermission(missingPermissions)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +60,7 @@ class MainActivity : ComponentActivity()
         // and avoids showing dialogs again. Also avoids race conditions between multiple permissions handling!
         // The processing within lambda happens only after user-input (if applicable) is provided through the dialog
         requestPermissionLauncher.launch(permissionList)
+        featureExecutor = Executors.newSingleThreadExecutor()
         setContent {
             val homeScreenState = HomeScreenState(
                 showAddSessionDialog = remember { mutableStateOf(false) },
@@ -67,9 +81,14 @@ class MainActivity : ComponentActivity()
                 exitTransition = { ExitTransition.None }
             ) {
                 composable("home") { homeScreen.HomeScreenUI(this@MainActivity, navController, homeScreenState) }
-                composable("scene_description") { sceneDescription.SceneDescriptionUI(this@MainActivity, navController) }
-                composable("screen3") { screen3.Screen3UI(this@MainActivity, navController) }
+                composable("scene_description") { sceneDescription.SceneDescriptionUI(this@MainActivity, featureExecutor) }
+                composable("screen3") { screen3.Screen3UI(this@MainActivity) }
             }
         }
+    }
+
+    override fun onDestroy() {
+        featureExecutor.shutdown()
+        super.onDestroy()
     }
 }

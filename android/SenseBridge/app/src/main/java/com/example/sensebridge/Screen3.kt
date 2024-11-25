@@ -14,7 +14,7 @@ import androidx.navigation.NavHostController
 
 class Screen3 {
     @Composable
-    fun Screen3UI(mainContext: Context, navController: NavHostController)
+    fun Screen3UI(mainContext: Context)
     {
         Column(modifier = Modifier.fillMaxSize().padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
