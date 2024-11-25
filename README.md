@@ -65,9 +65,9 @@ Mention how the reviewer can validate the prototype is doing what it is intended
 If your prototype requires some files / data for evaluation, make sure to provide the files along with instructions on using them.
 -->
 1. Android-app
-   - You can test one side of the "Scene description feature", which displays the first 8 values of the image embedding based on real-time camera feed. (Refer demo video for a sample use).
+   - You can test a half of the "Scene description feature", which displays the first 8 values of the openAI clip image embedding based on real-time camera feed. (Refer demo video for a sample use).
 2. Handsign-python
-   - You can run individual cells one by one in jupyter notebook, and the last cell will open a video stream window, where you can show hand-signs which can be detected by the final model.
+   - You can run individual cells one by one in jupyter notebook, and the last cell will open a video stream window, where you can show ASL hand-signs which can be detected by the final model.
 3. Clip-python
    - In 2nd last cell, can change filename in the line "image = preprocess(Image.open("a_photo_of_a_television_studio.png")).unsqueeze(0)" based on whatever image file you want to evaluate.
    - In 2nd last cell, can modify text list "text_list = ["a photo of a cat", "a photo of a dog", "a photo of a television studio", "a photo of a flying cat"]" based on what texts you want to compare the image with.
