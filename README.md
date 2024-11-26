@@ -34,7 +34,11 @@ Currently, there are 3 distinct parts in our project, since integration is pendi
 1. Android app which allows creating sessions for each available feature, with Clip tflite image encoder enabled on camera feed (will refer as "Android-app").
    - To write.
 2. Python notebook demo of OpenAI clip tflite models (image and text encoder as available in AI-hub) and outputs similarity values (will refer as "Clip-python").
-   - To write.
+   - The code uses the CLIP (Contrastive Language–Image Pre-training) model to calculate the similarity between an image and a list of text descriptions. It utilizes pre-trained TensorFlow Lite models from AIHub for image and text encoding, allowing for efficient inference.
+   - Model Loading: Loads TensorFlow Lite interpreters for the image and text encoders from .tflite files. Loads the CLIP model and its preprocessing function using clip.load.
+   - Inference Function: Defines a function inference_model to perform inference with the given interpreter and input data. Converts the input tensor to a NumPy array, sets it as input to the interpreter, invokes the interpreter, and retrieves the output tensor.
+   - Image and Text Processing: Loads an image using PIL.Image and preprocesses it using the CLIP preprocessing function. Defines a list of text descriptions.
+   - Similarity Calculation: Obtains image features by running the image through the image encoder. Iterates through the text descriptions: Tokenizes the text using clip.tokenize. Obtains text features by running the tokenized text through the text encoder. Calculates the similarity (probability) between the image and text features using dot product. Prints the probability for each text description.
 3. Python notebook demo of Hand Landmark processing and flow to predict sign language with our custom NN model based on landmarks (will refer as "Handsign-python").
    - To write.
 
