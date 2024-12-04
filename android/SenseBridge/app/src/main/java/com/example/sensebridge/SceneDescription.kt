@@ -1,10 +1,5 @@
 package com.example.sensebridge
 
-import android.content.Context
-import android.util.Size
-import androidx.camera.core.CameraSelector
-import androidx.camera.view.LifecycleCameraController
-import androidx.camera.view.PreviewView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -27,23 +22,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import com.example.sensebridge.ui.theme.Purple80
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageProxy
-import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.mutableStateOf
-import androidx.core.content.ContextCompat
 import com.example.sensebridge.models.Model
-import com.google.common.util.concurrent.ListenableFuture
 import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 @Suppress("DEPRECATION")
 @OptIn(ExperimentalMaterial3Api::class)
 
@@ -54,8 +39,8 @@ class SceneDescription {
         val imageAnalyser = remember { ImageAnalyserAlgo() }
         val camControl = remember { CameraControl(imageAnalyser) }
         val model = remember { Model() }
-        // val model2 = remember { Model() }
         var display = remember { mutableStateOf("") }
+        val lifeCycleOwner = LocalLifecycleOwner.current
         DisposableEffect(Unit) {
             model.setupModel(mainContext, "openai_clip-clipimageencoder.tflite")
             // model2.setupModel(mainContext, "openai_clip-cliptextencoder.tflite")
@@ -64,21 +49,48 @@ class SceneDescription {
                 display.value = it[0][0].toString() + " " + it[0][1].toString() + " " + it[0][2].toString() + " " + it[0][3].toString() + " " + it[0][4].toString() +
                         " " + it[0][5].toString() + " " + it[0][6].toString() + " " + it[0][7].toString() + " -- " + it[0].size.toString()
             }
-            camControl.setupCamera(mainContext, executor)
+            camControl.setupCamera(mainContext, executor, lifeCycleOwner)
             onDispose {
+                camControl.shutdownCamera()
                 model.closeModel()
-                // model2.closeModel()
             }
         }
 
         // Screen to display camera preview
-        val lifeCycleOwner = LocalLifecycleOwner.current
-        camControl.ImagePreview(lifeCycleOwner)
+        camControl.ImagePreview()
 
-        // Overlaid buttons to flip camera, save snapshot (with transcription)
-        Column(modifier = Modifier.fillMaxSize().padding(16.dp).background(Color.White)) {
+        // Debug display
+        Column(modifier = Modifier.size(400.dp).padding(16.dp).background(Color.White)) {
             Text(text = "Output", modifier = Modifier.padding(16.dp), color = Color.Black)
             Text(text = "What? ${display.value}" , modifier = Modifier.padding(16.dp), color = Color.Black)
+        }
+
+        // Overlaid buttons to flip camera, save snapshot (with transcription)
+        Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp, 32.dp))
+        {
+            IconButton(
+                onClick = { camControl.switchCamera() },
+                modifier = Modifier
+                    .padding(16.dp)
+                    .size(64.dp)
+                    .clip(CircleShape)
+                    .background(Color(0xFFD0BCFF).copy(alpha = 0.3f))
+            ) {
+                Icon(painter = painterResource(R.drawable.flip_camera_android_24px),
+                    tint = Color.White, contentDescription = "Flip Camera")
+            }
+            Spacer(modifier = Modifier.width(64.dp))
+            Button(
+                onClick = {  },
+                colors = ButtonDefaults.buttonColors(Color.White.copy(alpha = 0.85f)),
+                modifier = Modifier
+                    .padding(16.dp)
+                    .size(64.dp)
+                    .clip(CircleShape)
+            ) { }
         }
     }
 }
