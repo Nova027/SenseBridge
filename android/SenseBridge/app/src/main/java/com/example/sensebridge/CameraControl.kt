@@ -14,9 +14,10 @@ import java.util.concurrent.ExecutorService
 
 class CameraControl(val camAnalyser : ImageAnalyserAlgo) {
     lateinit var camController : LifecycleCameraController
+    lateinit var previewView: PreviewView
     var setupComplete : Boolean = false
 
-    fun setupCamera(context: Context, executor: ExecutorService) {
+    fun setupCamera(context: Context, executor: ExecutorService, lifecycleOwner : LifecycleOwner) {
         camController = LifecycleCameraController(context.applicationContext).apply {
                 cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
                 setEnabledUseCases(LifecycleCameraController.IMAGE_ANALYSIS)
@@ -24,27 +25,38 @@ class CameraControl(val camAnalyser : ImageAnalyserAlgo) {
                 setImageAnalysisBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 setImageAnalysisOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
             }
+        camController.bindToLifecycle(lifecycleOwner)
+
+        previewView = PreviewView(context)
+        previewView.controller = camController
+
         setupComplete = true
     }
 
     fun switchCamera() {
-        if (!setupComplete) return
+        if (!setupComplete)
+            return
         camController.cameraSelector =
             if (camController.cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) CameraSelector.DEFAULT_FRONT_CAMERA
             else CameraSelector.DEFAULT_BACK_CAMERA
     }
 
     @Composable
-    fun ImagePreview(lifecycleOwner : LifecycleOwner) {
-        if (!setupComplete) return
+    fun ImagePreview() {
+        if (!setupComplete)
+            return
         AndroidView(
-            factory = { it : Context ->
-                PreviewView(it).apply {
-                    this.controller = camController
-                    camController.bindToLifecycle(lifecycleOwner)
-                }
-            },
+            factory = { previewView },
             modifier = Modifier.fillMaxSize()
         )
+    }
+
+    fun shutdownCamera() {
+        if (!setupComplete)
+            return
+        camController.clearImageAnalysisAnalyzer()
+        camController.unbind()
+        previewView.controller = null
+        setupComplete = false
     }
 }
