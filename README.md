@@ -3,7 +3,6 @@
 ## Idea Details
 - Team Name: SenseBridge
 - Idea Title: SenseBridge – A Unified Accessibility App
-- Idea url: https://aibuzz.qualcomm.com/idea/3567
 
 - Team Members
   - Swarnava Das
